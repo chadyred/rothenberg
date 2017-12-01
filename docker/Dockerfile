@@ -1,4 +1,4 @@
-FROM php:7.1-cli
+FROM php:7.0-cli
 RUN echo "deb http://ftp.us.debian.org/debian testing main contrib non-free" >> /etc/apt/sources.list
 RUN apt-get remove -qqy libgnutls-deb0-28 2>/dev/null || true
 RUN apt-get update -qq && apt-get install -qqy wget curl git/testing zlib1g-dev libpcre3-dev && rm -rf /var/lib/apt/lists/*
