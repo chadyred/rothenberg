@@ -67,7 +67,7 @@ tests-clean:
 	$(RM) tests/cases
 
 .PHONY: tests
-tests: test/install/app test/install/bundle test/update/app test/update/bundle test/bad/target
+tests: test/install/app test/install/bundle test/update/app test/update/bundle test/bad/target test/install/addons/ci/app
 
 test/install/%:
 	$(DOCKER_BIN) system prune -f

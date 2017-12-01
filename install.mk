@@ -92,12 +92,12 @@ endif
 
 ## Make
 install/addons:
-ifneq($(CI),)
-ifneq($(wildcard $(subst install/,,$@)/$(CI)),)
-	$(CP) $(subst install/,,$@)/$(CI)/* $(RESOURCES_DIR)/
+ifneq ($(CI),)
+ifneq ($(wildcard addons/ci/$(CI)),)
+	$(CP) addons/ci/$(CI)/* $(RESOURCES_DIR)/
 	echo "CI = $(CI)" > .rothenberg
 endif
-	echo "CI $(CI) non supporté."
+	echo "CI $(CI) is not support."
 endif
 
 
