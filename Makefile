@@ -89,6 +89,14 @@ test/update/%:
 	git -C tests/cases/update/$* diff -- `grep -lr '# This file MUST NOT be updated by Rothenberg' tests/cases/update/$* | grep -v vendor/norsys/rothenberg`':(exclude)composer.lock' > tests/cases/update/oracle.$*.diff
 	@$(call assert,! -s tests/cases/update/oracle.$*.diff,$@,cat tests/cases/update/oracle.$*.diff)
 
+test/install/addons/%:
+	$(DOCKER_BIN) system prune -f
+	$(eval $(check-repository))
+	$(call create-oracle,tests/cases/install/addons/$*,tests/oracles/install/addons/$*)
+	$(RM) tests/cases/install/addons/$*/*
+	export TARGET=$(notdir $@) CI=gitlab VERSION=dev-$(GIT_BRANCH) SSH_KEY=$(SSH_KEY) && ./install.sh --build-docker-image --vcs=/vcs/rothenberg --directory=tests/cases/install/addons/$*
+	git -C tests/cases/install/addons/$* add .
+
 .PHONY: test/bad/target
 test/bad/target:
 	$(DOCKER_BIN) system prune -f
